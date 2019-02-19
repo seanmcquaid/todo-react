@@ -1,37 +1,65 @@
-import React from "react";
+import React,{Component} from "react";
 
-function Home(props){
-    return(
-        <div className="to-do-app">      
-                <div className="section no-pad-bot" id="index-banner">
-                    <div className="container">
-                        <h1 className="header center orange-text">To-Do List</h1>
-                        <div className="row center">
-                            <h5 className="header col s12 light">Made with React and Express</h5>
+class Home extends Component{
+    constructor(){
+        super()
+        this.state = {
+            task : "",
+            date : ""
+        }
+        this.changeTask = this.changeTask.bind(this);
+        this.changeDate = this.changeDate.bind(this)
+    }
+
+    addNewTask(event){
+        event.preventDefault();
+        console.log("submitted form")
+    }
+
+    changeTask(event){
+        this.setState({
+            task: event.target.value,
+        })
+    }
+
+    changeDate(event){
+        this.setState({
+            date: event.target.value,
+        })
+    }
+    render(){
+        return(
+            <div className="to-do-app">      
+                    <div className="section no-pad-bot" id="index-banner">
+                        <div className="container">
+                            <h1 className="header center orange-text">To-Do List</h1>
+                            <div className="row center">
+                                <h5 className="header col s12 light">Made with React and Express</h5>
+                            </div>
                         </div>
+                    </div>    
+                    <div className="container">
+                        <form onSubmit={this.addNewTask} className="add-box">
+                            <input onChange={this.changeTask} type="text" id="new-task" placeholder="New Task" value={this.state.task}/>
+                            <input onChange={this.changeDate} type="date" id="new-task-date" value={this.state.date}/>
+                            <button type="submit" className="btn btn-primary">Add Task</button>
+                        </form>
+                        <table className="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Delete</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
                     </div>
-                </div>    
-                <div className="container">
-                    <form onSubmit={props.addNewTask} className="add-box">
-                        <input type="text" id="new-task" placeholder="New Task" />
-                        <input type="date" id="new-task-date" />
-                        <button type="submit" className="btn btn-primary">Add Task</button>
-                    </form>
-                    <table className="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Task</th>
-                                <th>Delete</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-    )
+        )
+    }
 }
 
 export default Home;
