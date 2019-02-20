@@ -13,6 +13,15 @@ class App extends Component {
     }
   }
 
+  componentDidMount(){
+    axios({
+      method: "GET",
+      url : "http://localhost:3000/getTasks",
+    }).then((taskListFromBackEnd)=>{
+      
+    })
+  }
+
   // we can use arrow functions so you DONT HAVE TO BIND!!!
   addNewTask = (task,date)=>{
     console.log(task,date)
