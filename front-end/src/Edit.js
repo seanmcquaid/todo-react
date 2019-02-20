@@ -23,7 +23,7 @@ class Edit extends Component {
     }
 
     changeDate = (event)=>{
-        const value = event.target.value;
+        let value = event.target.value;
         let taskStateCopy = {...this.state.task};
         taskStateCopy.taskDate = value;
         this.setState({
@@ -47,6 +47,21 @@ class Edit extends Component {
 
     editTask = (event)=>{
         event.preventDefault()
+        axios({
+            method: "POST",
+            data: {
+                task : this.state.task,
+                id : this.props.match.params.id,
+            },
+            url : `http://localhost:3000/edit`
+        }).then((jsonData)=>{
+            // console.log(jsonData.data)
+            if(jsonData.data.msg === "updated"){
+                // the backend succeeded
+                // console.log(this.props.history)
+                this.props.history.push("/");
+            }
+        })
     }
     render(){
         // console.log(this.state.task)
