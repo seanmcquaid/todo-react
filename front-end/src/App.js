@@ -18,7 +18,10 @@ class App extends Component {
       method: "GET",
       url : "http://localhost:3000/getTasks",
     }).then((taskListFromBackEnd)=>{
-      
+      console.log(taskListFromBackEnd.data);
+      this.setState({
+        taskList : taskListFromBackEnd.data
+      })
     })
   }
 
