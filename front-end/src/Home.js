@@ -13,12 +13,14 @@ class Home extends Component{
     }
 
     addNewTask(event){
+        // prevents a new http request
         event.preventDefault();
         // console.log("submitted form")
         this.props.addNewTask(this.state.task, this.state.date)
     }
-
+    // event is everything that has happened - including typing when will cause a re render
     changeTask(event){
+        // target == input box in this case
         this.setState({
             task: event.target.value,
         })
@@ -30,6 +32,18 @@ class Home extends Component{
         })
     }
     render(){
+        // proof that state updates on every key stroke in input
+        // console.log(this.state)
+        const taskArray = this.props.taskList.map((task, index)=>{
+            return (
+                <tr key={task.id}>
+                    <td>{task.taskName} - {task.taskDate}</td>
+                    <td><button className="btn red">Delete</button></td>
+                    <td><button className="btn blue">Edit</button></td>
+                </tr>
+            )
+        })
+        // console.log(taskArray)
         return(
             <div className="to-do-app">      
                     <div className="section no-pad-bot" id="index-banner">
@@ -55,7 +69,7 @@ class Home extends Component{
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                {taskArray}
                             </tbody>
                         </table>
                     </div>

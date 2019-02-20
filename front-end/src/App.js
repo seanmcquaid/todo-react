@@ -6,9 +6,16 @@ import Home from "./Home";
 import axios from "axios";
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      taskList : []
+    }
+  }
+
   // we can use arrow functions so you DONT HAVE TO BIND!!!
   addNewTask = (task,date)=>{
-    // console.log(task,date)
+    console.log(task,date)
     axios({
       method: "POST",
       url : "http://localhost:3000/addTask",
@@ -17,7 +24,10 @@ class App extends Component {
         taskDate : date
       }
     }).then((backEndResponse)=>{
-      console.log(backEndResponse)
+      // console.log(backEndResponse)
+      this.setState({
+        taskList: backEndResponse.data
+      })
     })
   }
 
@@ -25,8 +35,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={Navbar}/>
-          <Route path="/" render={()=><Home addNewTask={this.addNewTask}/>}/>
+          <Navbar/>
+          <Route path="/" render={()=><Home addNewTask={this.addNewTask} taskList={this.state.taskList}/>}/>
         </div>
       </Router>
     );

@@ -10,7 +10,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // Fixing CORS/permission issue
-
+// sends header over allowing our site to display with no errors
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
