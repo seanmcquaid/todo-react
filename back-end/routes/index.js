@@ -32,4 +32,13 @@ router.get("/getTasks", (req,res,next)=>{
   })
 })
 
+router.get("/getTask/:tid", (req,res,next)=>{
+  const tid = req.params.tid;
+  const selectTaskQuery = `SELECT * FROM tasks where id = ?;`;
+  connection.query(selectTaskQuery,[tid],(err,result)=>{
+    if(err){throw err}
+    res.json({task : result[0]});
+  })
+})
+
 module.exports = router;

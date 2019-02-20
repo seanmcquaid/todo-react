@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom"
 import './App.css';
 import Navbar from "./Navbar";
 import Home from "./Home";
+import Edit from "./Edit";
 import axios from "axios";
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
       method: "GET",
       url : "http://localhost:3000/getTasks",
     }).then((taskListFromBackEnd)=>{
-      console.log(taskListFromBackEnd.data);
+      // console.log(taskListFromBackEnd.data);
       this.setState({
         taskList : taskListFromBackEnd.data
       })
@@ -49,6 +50,7 @@ class App extends Component {
         <div className="App">
           <Navbar/>
           <Route path="/" render={()=><Home addNewTask={this.addNewTask} taskList={this.state.taskList}/>}/>
+          <Route exact path="/edit/:id" component={Edit}/>
         </div>
       </Router>
     );
